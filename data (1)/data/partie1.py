@@ -2,9 +2,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from collections import Counter
 import re
+import numpy as np
+from scipy.stats import entropy
 
 # --- Charger le CSV ---
-# Remplace "mon_fichier.csv" par ton fichier
 df = pd.read_csv("C:/Users/delan/Documents/TP8770/TPINF8770/data (1)/data/text_structured/accumulation-accounts-2008-2023-provisional.csv")
 
 # --- Convertir tout le contenu du CSV en une seule chaîne de texte ---
@@ -32,7 +33,7 @@ compteur = Counter(mots)
 # --- Top 20 mots les plus fréquents ---
 top20 = compteur.most_common(20)
 
-# --- Visualisation ---
+# --- Visualisation histogramme ---
 mots_top, freq_top = zip(*top20)
 plt.figure(figsize=(10,6))
 plt.bar(mots_top, freq_top)
@@ -43,8 +44,17 @@ plt.ylabel("Fréquence")
 plt.tight_layout()
 plt.show()
 
+# --- Entropie de Shannon (caractères) ---
+caracteres = list(text)  # sépare chaque caractère
+compteur_chars = Counter(caracteres)
+freqs = np.array(list(compteur_chars.values()))
+probas = freqs / freqs.sum()
 
+H = entropy(probas, base=2)  # entropie en bits par caractère
+Hmax = np.log2(len(compteur_chars))  # entropie maximale possible
+redondance = 1 - (H / Hmax if Hmax > 0 else 0)
 
-# 1. Compter le nombre de mots uniques.
-# 2. Comparer ce nombre au total de mots (richesse lexicale = mots_uniques / mots_total).
-# 3. Exemple de graphique : un histogramme des mots les plus fréquents (top 20).
+print("\n--- Entropie et redondance ---")
+print(f"Entropie de Shannon (caractères) : {H:.4f} bits/symbole")
+print(f"Entropie max possible : {Hmax:.4f} bits/symbole")
+print(f"Taux de redondance : {redondance:.2%}")
