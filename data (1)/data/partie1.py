@@ -5,13 +5,13 @@ import re
 import numpy as np
 from scipy.stats import entropy
 
-# --- Charger le CSV ---
+# --- Charger le CSV (dans le dataframe de Pandas) ---
 df = pd.read_csv("C:/Users/delan/Documents/TP8770/TPINF8770/data (1)/data/text_structured/accumulation-accounts-2008-2023-provisional.csv")
 
 # --- Convertir tout le contenu du CSV en une seule chaîne de texte ---
 text = " ".join(df.astype(str).values.flatten())
 
-# --- Tokenisation simple : extraire les mots avec regex ---
+# --- Extraire les mots avec regex: On prend tout ce qui est alpha num.rique, donc les virgules sont enlevées---
 mots = re.findall(r"\w+", text.lower())
 
 # --- Nombre total de mots ---
@@ -19,30 +19,21 @@ nb_total_mots = len(mots)
 
 # --- Nombre de mots uniques ---
 nb_mots_uniques = len(set(mots))
+pourcentage_mots_uniques = 0
 
 # --- Richesse lexicale ---
-richesse = nb_mots_uniques / nb_total_mots if nb_total_mots > 0 else 0
+if nb_total_mots > 0:
+    pourcentage_mots_uniques = (nb_mots_uniques / nb_total_mots)*100
 
 print(f"Nombre total de mots : {nb_total_mots}")
 print(f"Nombre de mots uniques : {nb_mots_uniques}")
-print(f"Richesse lexicale : {richesse:.4f}")
+print(f"Pourcentage de mots uniques : {pourcentage_mots_uniques}%")
 
 # --- Compter la fréquence des mots ---
 compteur = Counter(mots)
 
 # --- Top 20 mots les plus fréquents ---
-top20 = compteur.most_common(20)
-
-# --- Visualisation histogramme ---
-mots_top, freq_top = zip(*top20)
-plt.figure(figsize=(10,6))
-plt.bar(mots_top, freq_top)
-plt.xticks(rotation=45)
-plt.title("Top 20 mots les plus fréquents")
-plt.xlabel("Mots")
-plt.ylabel("Fréquence")
-plt.tight_layout()
-plt.show()
+top10 = compteur.most_common(10)
 
 # --- Entropie de Shannon (caractères) ---
 caracteres = list(text)  # sépare chaque caractère
@@ -58,3 +49,26 @@ print("\n--- Entropie et redondance ---")
 print(f"Entropie de Shannon (caractères) : {H:.4f} bits/symbole")
 print(f"Entropie max possible : {Hmax:.4f} bits/symbole")
 print(f"Taux de redondance : {redondance:.2%}")
+
+
+# --- Visualisation histogramme ---
+mots_top, freq_top = zip(*top10)
+plt.figure(figsize=(10,6))
+plt.bar(mots_top, freq_top)
+plt.xticks(rotation=45)
+plt.title("Top 10 mots les plus fréquents")
+plt.xlabel("Mots")
+plt.ylabel("Fréquence")
+plt.tight_layout()
+plt.show()
+
+# --- Histogramme des caractères les plus fréquents ---
+top_chars = Counter(text.lower()).most_common(20)
+chars, freqs = zip(*top_chars)
+
+plt.figure(figsize=(10,5))
+plt.bar(chars, freqs, color="skyblue")
+plt.title("Top 20 caractères les plus fréquents")
+plt.xlabel("Caractères")
+plt.ylabel("Fréquence")
+plt.show()
