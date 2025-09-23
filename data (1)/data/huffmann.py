@@ -1,6 +1,7 @@
 # huffman_text.py
 import huffman
 from collections import Counter
+import time
 
 def huffman_compress(text):
     """
@@ -8,6 +9,9 @@ def huffman_compress(text):
     text : chaîne de caractères
     Retourne : encoded (texte compressé en bits), codes (dictionnaire Huffman)
     """
+
+    # Débuter le compteur 
+    start = time.time()      
     # Compter les caractères
     freq = Counter(text)
 
@@ -16,6 +20,10 @@ def huffman_compress(text):
 
     # Encoder le texte
     encoded = ''.join(codes[c] for c in text)
+
+    end = time.time()         # Temps après l'exécution
+
+    
 
     # Taille originale et compressée
     original_bits = len(text) * 8
@@ -26,5 +34,6 @@ def huffman_compress(text):
     print("Taille originale :", original_bits, "bits")
     print("Taille compressée :", compressed_bits, "bits")
     print("Taux de compression :", taux, "%")
+    print("Temps écoulé :", end - start, "secondes \n")
 
     return encoded, codes

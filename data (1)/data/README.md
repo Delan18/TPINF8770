@@ -36,4 +36,6 @@ Cette librairie du module scipy.stats nous facilite la tâche de calculer l'entr
 
 ```bash
 pip install huffman
+pip install constriction
+
 ```
