@@ -38,3 +38,22 @@ Cette librairie du module scipy.stats nous facilite la tâche de calculer l'entr
 pip install huffman
 
 ```
+## Commande pour lancer le projet
+À effectuer dans le repertoire TPINF8770
+### Lancer l'analyse (partie 1)
+
+```bash
+python partie1.py
+
+```
+
+### Lancer la compression (partie 2)
+
+```bash
+python partie2.py
+
+```
+
+## Sources
+
+Nous avons utilisé ChatGPT pour corrigé et compléter nos codes. Ceci est vrai pour tout les fichier .py du projet. Pour les analyses et formules,nous nous sommes appuyé sur les notes de cours (Chapitre 2 - Compression sans perte). 

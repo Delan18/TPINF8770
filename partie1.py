@@ -70,17 +70,17 @@ def analyse_texte(texte, type_fichier):
 if __name__ == "__main__":
 
     # Fichier CSV
-    chemin_csv = "data (1)/data/text_structured/accumulation-accounts-2008-2023-provisional.csv"
+    chemin_csv = "data/text_structured/accumulation-accounts-2008-2023-provisional.csv"
     df = pd.read_csv(chemin_csv)
     texte_csv = " ".join(df.astype(str).values.flatten())
 
     # Fichier Code
-    chemin_code = "data (1)/data/text_code/code2.html"
+    chemin_code = "data/text_code/code2.html"
     with open(chemin_code, 'r', encoding='utf-8', errors='ignore') as file:
         texte_code = file.read() 
 
     # Fichier Texte
-    chemin_code = "data (1)/data/text_natural/text_natural_1.txt"
+    chemin_code = "data/text_natural/text_natural_1.txt"
     with open(chemin_code, 'r', encoding='utf-8', errors='ignore') as file:
         texte_natural = file.read()
 
