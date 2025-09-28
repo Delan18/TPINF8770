@@ -6,7 +6,7 @@ Ce projet permet d'analyser nos fichiers afin de mesurer certains critères qui 
 - Entropie de Shannon (caractères)
 - Taux de redondance
 
-Un histogramme des 20 mots les plus fréquents est également généré.
+Un histogramme des 10 mots les plus fréquents et aussi des 20 caractères les plus fréquents sont générés.
 
 ---
 
