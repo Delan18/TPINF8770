@@ -7,7 +7,7 @@ from scipy.stats import entropy
 
 def analyse_texte(texte, type_fichier):
 
-    # Extraire les mots avec regex: On prend tout ce qui est alpha num.rique, donc les virgules sont enlevées---
+    # Extraire les mots avec regex
     mots = re.findall(r"\w+", texte.lower())
 
     nb_total_mots = len(mots)
@@ -25,7 +25,7 @@ def analyse_texte(texte, type_fichier):
     
 
     # Entropie de Shannon (caractères)
-    caracteres = list(texte)  # sépare chaque caractère
+    caracteres = list(texte) 
     compteur_chars = Counter(caracteres)
     freqs = np.array(list(compteur_chars.values()))
     probas = freqs / freqs.sum()
@@ -70,17 +70,17 @@ def analyse_texte(texte, type_fichier):
 if __name__ == "__main__":
 
     # Fichier CSV
-    chemin_csv = "text_structured/accumulation-accounts-2008-2023-provisional.csv"
+    chemin_csv = "data (1)/data/text_structured/accumulation-accounts-2008-2023-provisional.csv"
     df = pd.read_csv(chemin_csv)
     texte_csv = " ".join(df.astype(str).values.flatten())
 
     # Fichier Code
-    chemin_code = "text_code/code2.html"
+    chemin_code = "data (1)/data/text_code/code2.html"
     with open(chemin_code, 'r', encoding='utf-8', errors='ignore') as file:
         texte_code = file.read() 
 
     # Fichier Texte
-    chemin_code = "text_natural/text_natural_1.txt"
+    chemin_code = "data (1)/data/text_natural/text_natural_1.txt"
     with open(chemin_code, 'r', encoding='utf-8', errors='ignore') as file:
         texte_natural = file.read()
 

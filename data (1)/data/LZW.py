@@ -3,7 +3,6 @@
 import time
 
 def lzw_compression(text):
-    # Si str, on encode en UTF-8 pour gérer les accents.
     if isinstance(text, str):
         data = text.encode("utf-8")
     else:
@@ -31,7 +30,6 @@ def lzw_compression(text):
             dict_size += 1
             w = c
 
-    # Ajouter le dernier code
     if w:
         compressed.append(dictionary[w])
 
